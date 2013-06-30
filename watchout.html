@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+/*circle {
+  width: 20px;
+  height: 20px;
+  border-radius: 20px;
+  background-color: black;
+  color: black;
+  display: block;
+  position: relative;
+}*/
+</style>
+<body>
+<script src="http://d3js.org/d3.v2.min.js?2.10.1"></script>
+<script>
+var emptyArray = new Array(300);
+
+var width = 960,
+    height = 500;
+
+var svg = d3.select("body").append("svg")
+  .attr("width", width)
+  .attr("height", height)
+
+// circle = svg.append("circle")
+//   .attr("cx", function() { return Math.floor(Math.random()*width) })
+//   .attr("cy", function() { return Math.floor(Math.random()*height) })
+//   .attr("r", 5);
+
+function update(data) {
+  var circles = svg.selectAll("circle")
+    .data(emptyArray);
+
+  circles.transition().duration(500)
+    .attr("cx", function() { return Math.floor(Math.random()*width); })
+    .attr("cy", function() { return Math.floor(Math.random()*height); });
+
+  circles.enter()
+    .append("circle")
+    .attr("cy", function() { return Math.floor(Math.random()*width) })
+    .attr("cx", function() { return Math.floor(Math.random()*height) })
+    .attr("r", 5);
+
+  circles.exit().remove();
+
+}
+update(emptyArray);
+setInterval(function(){ update(emptyArray) }, 500);
+
+</script>
